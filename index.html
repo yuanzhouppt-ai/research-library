@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>企业初研报告文库</title>
+<title>汽车产业链企业信息</title>
 <style>
 :root{--red:#8A1F1F;--dark:#2B2B2B;--grey:#595959;--line:#E8E0E0;--bg:#FAF7F5;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -62,15 +62,14 @@ footer{text-align:center;font-size:11px;color:#999;padding:18px 16px;}
 </head>
 <body>
 <header>
-  <h1>企业初研报告文库</h1>
-  <p>一级市场企业初研 · 桌面公开信息研究 · 数据截至 2026-10 · 点击卡片展开概览</p>
+  <h1>汽车产业链企业信息</h1>
   <div class="searchbar"><input id="q" type="search" placeholder="搜索公司 / 赛道 / 关键词" oninput="render()"></div>
 </header>
 <div class="chips" id="chips"></div>
 <div class="meta" id="cnt"></div>
 <div id="list"></div>
 <div class="empty" id="empty">没有匹配的公司</div>
-<footer>共 36 家 · 每篇含八个章节完整内容 · 报告性质：非尽职调查</footer>
+<footer>共 36 家 · 每篇含八个章节完整内容 · 数据截至 2026-10</footer>
 <div id="reader">
   <div class="rbar">
     <button class="back" onclick="closeReader()">‹ 返回</button>
@@ -110,7 +109,10 @@ function render(){
 }
 function blocksHtml(d){
   let h='';
-  if(d.intro) h+=`<div class="intro">${esc(d.intro)}</div>`;
+  if(d.intro){
+    const m=d.intro.match(/信息截至\s*(\d{4}\s*年\s*\d+\s*月)/);
+    h+=`<div class="intro">数据说明：信息截至 ${m?m[1].replace(/\s+/g,' '):'2026 年 10 月'}。</div>`;
+  }
   d.blocks.forEach(b=>{
     if(b.t==='h') h+=`<h2>${esc(b.x)}</h2>`;
     else if(b.t==='b') h+=`<p class="bl">${esc(b.x)}</p>`;
