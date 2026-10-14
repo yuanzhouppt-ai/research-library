@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>汽车产业链企业数据库</title>
+<title>汽车产业链企业数据库（内部版）</title>
 <style>
 :root{--red:#8A1F1F;--dark:#2B2B2B;--grey:#595959;--line:#E8E0E0;--bg:#FAF7F5;--gold:#C8963E;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -91,7 +91,7 @@ footer .flink{color:var(--red);font-size:12px;letter-spacing:1px;}
 </head>
 <body>
 <header>
-  <h1>汽车产业链企业数据库<span class="badge" style="display:none">内部版</span></h1>
+  <h1>汽车产业链企业数据库<span class="badge" style="display:inline-block">内部版</span></h1>
   <div class="sub">数据截至 2026-10 · 最近更新 <span id="upd"></span> · 共 <span id="total"></span> 家 · 点卡片展开概览，点 ☆ 收藏</div>
   <div class="searchbar"><input id="q" type="search" placeholder="搜索公司 / 赛道 / 关键词" oninput="render()"></div>
 </header>
@@ -113,7 +113,12 @@ footer .flink{color:var(--red);font-size:12px;letter-spacing:1px;}
     <button class="mini" onclick="window.print()">导出PDF</button>
   </div>
   <div class="rbody" id="rbody"></div>
-  
+  <div class="notesec">
+  <div class="nh">内部备注（仅保存在本机浏览器）</div>
+  <div class="stars" id="ratestars" style="display:flex;gap:2px;cursor:pointer"><span onclick="setRate(CUR.name,1)">★</span><span onclick="setRate(CUR.name,2)">★</span><span onclick="setRate(CUR.name,3)">★</span><span onclick="setRate(CUR.name,4)">★</span><span onclick="setRate(CUR.name,5)">★</span></div>
+  <textarea id="note" placeholder="记录尽调线索、联系人、判断…" oninput="saveNote(CUR.name,this.value)"></textarea>
+  <div class="nsave" id="nsave">点击星标评分，备注自动保存</div>
+</div>
 </div>
 <script src="data.js"></script>
 <script>
@@ -121,7 +126,7 @@ const DATA=window.RDB_DATA;
 document.getElementById('upd').textContent=window.RDB_UPDATED;
 document.getElementById('total').textContent=window.RDB_TOTAL;
 document.getElementById('chglist').innerHTML=window.RDB_CHANGELOG.map(c=>`<div class="ci"><span class="cd">${c.d}</span><span>${c.t}</span></div>`).join('');
-const INTERNAL=false;
+const INTERNAL=true;
 const LS={fav:'rdb_fav_v1',read:'rdb_read_v1',notes:'rdb_notes_v1',rate:'rdb_rate_v1'};
 function ld(k){try{return JSON.parse(localStorage.getItem(k))||{}}catch(e){return{}}}
 function sv(k,v){localStorage.setItem(k,JSON.stringify(v))}
